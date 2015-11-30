@@ -1,7 +1,7 @@
 # devirtualization
 Devirtualization (convert dynamic dispatch to direct function call) optimization for a subset Scala (named COOL 2015)
 
-## Class 
+## Class Hierarchy Analysis
 For CHA, following Chambers’ paper, there are two important data structures, cone set for each class and applies-to set for each method, which are implemented with Map. Firstly, the ClassHirerachyAnalysis object collect classes and methods information of whole program to compute these sets. Then when the analysis runs on a program, the `potentialMethods` computes all the potentially method for a concrete receiver’s static type and invoked method name, though the inherence graph (computed by `allSuperClasses` and `traverseOverride` method). If there is a method whose applies-to set does not overlap the cone set of receiver’s static type, this method may be called in runtime. Finally, if a receiver cannot be null (computed by `NonNullVisitor. notNull`) and just one method in overlap set, the method can be directly invoked.
 
 ## Context-insensitive Control Flow Analysis (0-CFA)
@@ -9,6 +9,7 @@ For 0-CFA, the ControlFlowAnalysis class has three significant properties, the t
 
 ## Effect of Optimizations
 Devirtualization:
+```
 +================+=========+==========+
 | Files/Analysis |   CHA   |  0-CFA   |
 +================+=========+==========+
@@ -18,8 +19,11 @@ Devirtualization:
 +----------------+---------+----------+
 | semant         | 44.079% | Too Slow |
 +----------------+---------+----------+
+```
+
 
 Dead Method Bodies Removing:
+```
 +================+========+
 | Files/Analysis | 0-CFA  |
 +================+========+
@@ -27,8 +31,10 @@ Dead Method Bodies Removing:
 +----------------+--------+
 | resolve        | 2.597% |
 +----------------+--------+
+```
 
 Dead Case Branches Removing:
+```
 +================+========+
 | Files/Analysis | 0-CFA  |
 +================+========+
@@ -36,6 +42,7 @@ Dead Case Branches Removing:
 +----------------+--------+
 | resolve        | 45.0%  |
 +----------------+--------+
+```
 
 ## Author  
 * Fei Peng
