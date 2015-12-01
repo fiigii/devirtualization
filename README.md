@@ -1,5 +1,5 @@
 # devirtualization
-Devirtualization (convert dynamic dispatch to direct function call) optimization for a subset Scala (named COOL 2015)
+Devirtualization (convert dynamic dispatch to direct function call) optimization for a subset Scala (named COOL 2015).   
 The `Analysis.scala` file includes two approaches to implement the devirtualization optimization, class hierarchy analysis and 0-CFA.
 
 ## Class Hierarchy Analysis
